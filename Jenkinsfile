@@ -1,25 +1,19 @@
 pipeline {
     agent any
+
     stages {
         stage('Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/atheeng/spring-docker-jenkins.git'
+                git 'https://github.com/atheeng/spring-docker-jenkins.git'
             }
         }
 
-     stage('Build JAR') {
-         steps {
-             script {
-                 if (isUnix()) {
-                     // For Linux or macOS
-                     sh './mvnw clean package -DskipTests'
-                 } else {
-                     // For Windows
-                     bat 'mvnw.cmd clean package -DskipTests'
-                 }
-             }
-         }
-     }
+        stage('Build JAR') {
+            steps {
+                // Make sure to use the correct path to mvnw
+                sh '/var/jenkins_home/workspace/springboot-app/mvnw clean package -DskipTests'
+            }
+        }
 
         stage('Stop Old App') {
             steps {
