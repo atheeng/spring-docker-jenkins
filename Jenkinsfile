@@ -4,11 +4,11 @@ pipeline {
         stage('Make mvnw executable') {
             steps {
                 script {
-                    // Ensure the correct command for Windows/Linux environments
+                    // Check if the environment is Unix-based and apply chmod if true
                     if (isUnix()) {
-                        sh 'chmod +x mvnw is isUnix'
+                        sh 'chmod +x mvnw'
                     } else {
-                        bat 'echo "No chmod on Windows, mvnw should already be executable"'
+                        echo 'No chmod required on Windows environment.'
                     }
                 }
             }
@@ -21,7 +21,7 @@ pipeline {
         stage('Build JAR') {
             steps {
                 script {
-                    // Ensure the correct command for Windows/Linux environments
+                    // Build the JAR using the appropriate command based on the environment
                     if (isUnix()) {
                         sh './mvnw clean package -DskipTests'
                     } else {
@@ -33,7 +33,7 @@ pipeline {
         stage('Stop Old App') {
             steps {
                 script {
-                    // Linux version
+                    // Stop old app based on the OS type
                     if (isUnix()) {
                         sh 'pkill -f "app.jar" || true'
                     } else {
@@ -45,7 +45,7 @@ pipeline {
         stage('Run New JAR') {
             steps {
                 script {
-                    // Linux version
+                    // Run new JAR based on the OS type
                     if (isUnix()) {
                         sh 'nohup java -jar target/*.jar > app.log 2>&1 &'
                     } else {
