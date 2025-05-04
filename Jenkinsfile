@@ -7,11 +7,19 @@ pipeline {
             }
         }
 
-        stage('Build JAR') {
-            steps {
-                 sh 'mvnw.cmd clean package -DskipTests'
-            }
-        }
+     stage('Build JAR') {
+         steps {
+             script {
+                 if (isUnix()) {
+                     // For Linux or macOS
+                     sh './mvnw clean package -DskipTests'
+                 } else {
+                     // For Windows
+                     bat 'mvnw.cmd clean package -DskipTests'
+                 }
+             }
+         }
+     }
 
         stage('Stop Old App') {
             steps {
