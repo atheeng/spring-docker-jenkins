@@ -6,7 +6,7 @@ pipeline {
                 script {
                     // Ensure the correct command for Windows/Linux environments
                     if (isUnix()) {
-                        sh 'chmod +x mvnw'
+                        sh 'chmod +x mvnw is isUnix'
                     } else {
                         bat 'echo "No chmod on Windows, mvnw should already be executable"'
                     }
