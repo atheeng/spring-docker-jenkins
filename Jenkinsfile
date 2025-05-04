@@ -23,7 +23,8 @@ pipeline {
                 script {
                     // Build the JAR using the appropriate command based on the environment
                     if (isUnix()) {
-                        sh './mvnw clean package -DskipTests'
+                        sh '/var/jenkins_home/workspace/springboot-app/mvnw clean package -DskipTests'
+
                     } else {
                         bat 'mvnw clean package -DskipTests'
                     }
