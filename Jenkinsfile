@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.5' // Ensure this matches your configured Maven version in Jenkins
-        jdk 'Java 17'       // Ensure Java is installed and configured in Jenkins
+        maven 'Maven 3.8.5'
+        jdk 'Java 17'
     }
 
     stages {
         stage('Clone') {
             steps {
-                git 'https://github.com/atheeng/spring-docker-jenkins.git'
+                git 'https://github.com/your-username/your-repo.git'
             }
         }
 
@@ -21,7 +21,6 @@ pipeline {
 
         stage('Stop Old App') {
             steps {
-                // Try to stop the running app
                 sh 'pkill -f "app.jar" || true'
             }
         }
