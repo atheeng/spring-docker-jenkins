@@ -37,7 +37,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'pkill -f "app.jar" || true'
                     } else {
-                        bat 'taskkill /F /IM app.jar'
+                        bat 'taskkill /F /IM app.jar || echo "No app.jar process found."'
                     }
                 }
             }
